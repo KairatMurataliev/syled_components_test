@@ -37,6 +37,7 @@ const UserLogin = styled.button `
     cursor: pointer;
     font-size: 1em;
     font-weight: 800;
+    outline: none;
 `;
 
 const Bio = styled.p `

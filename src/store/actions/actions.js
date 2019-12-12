@@ -21,12 +21,12 @@ export const getUsers = () => {
                 const arrayUsers = result.map((user => user.data));
                 dispatch(getUsersSuccess(arrayUsers))
             })).catch(error => {
-                // console.log(error.data.message);
-            });
-        }).catch(error => {
-            if(error.data.total_count === 0) {
-                dispatch(getUsersError(error));
-            }
-        })
+                dispatch(getUsersError({message: error.response.data.message, status: error.response.status}))
+            })
+        }, error => {
+            dispatch(getUsersError({message: error.response.data.message, status: error.response.status}))
+        });
     }
 };
+
+

@@ -17,31 +17,60 @@ class UsersList extends Component {
 
     render() {
 
-        const UserWrapper = styled.div `
+        const ErrorDiv = styled.div`
+            border: 1px solid #ccc;
+            padding: 10px 0;
+            width: 40%;
+            height: 100px;
+            margin: 50px auto;
+            border-radius: 7px;
+            text-align: center;
+            box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+            background: linear-gradient(0deg, rgba(231,231,231,1) 37%, rgba(255,255,255,1) 100%);
+        `;
+
+        const UserWrapper = styled.div`
             width: 80%;
             margin: 0 auto;
             font-family: 'Roboto', sans-serif;
         `;
 
+        const ErrorMessage = styled.p`
+            font-weight: bold;
+            text-transform: uppercase;
+        `;
+
+        const ErrorStatus = styled.p`
+            font-weight: bold;
+            color: #d01a1a;
+        `;
+
         return (
-            <UserWrapper>
-                {this.props.usersList && this.props.usersList.map((user, index) => {
-                    return (
-                        <User
-                            key={index}
-                            showInfo={this.showInfo}
-                            user={user}
-                        />
-                    )
-                })}
-            </UserWrapper>
+            this.props.error ?
+                <ErrorDiv>
+                    Sorry, looks like some error occured!!!
+                    <ErrorMessage>Message: {this.props.error.message}</ErrorMessage>
+                    <ErrorStatus>Status: {this.props.error.status}</ErrorStatus>
+                </ErrorDiv> :
+                <UserWrapper>
+                    {this.props.usersList && this.props.usersList.map((user, index) => {
+                        return (
+                            <User
+                                key={index}
+                                showInfo={this.showInfo}
+                                user={user}
+                            />
+                        )
+                    })}
+                </UserWrapper>
         )
     }
 }
 
 const mapStateToProps = state => {
     return {
-        usersList: state.users
+        usersList: state.users,
+        error: state.error
     }
 };
 
